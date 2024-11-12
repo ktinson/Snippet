@@ -13,7 +13,7 @@ public class Snippet {
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "app_user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     // Getters and Setters

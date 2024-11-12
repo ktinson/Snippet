@@ -28,8 +28,8 @@ public class SnippetController {
 
     // POST /snippet - Create a new snippet
     @PostMapping
-    public ResponseEntity<Snippet> createSnippet(@RequestBody Snippet snippet) {
-        Snippet createdSnippet = snippetService.createSnippet(snippet);
+    public ResponseEntity<Snippet> createSnippet(@RequestBody Snippet snippet, @RequestParam Long userId) {
+        Snippet createdSnippet = snippetService.createSnippet(snippet, userId);
         return new ResponseEntity<>(createdSnippet, HttpStatus.CREATED);
     }
     // @PostMapping
