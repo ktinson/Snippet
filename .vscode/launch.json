@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SnippetApplication<snippet>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.snippet.SnippetApplication",
+            "projectName": "snippet",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
