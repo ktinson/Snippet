@@ -17,4 +17,4 @@ buildNumber.properties
 .classpath
 .env
 node_modules
-
+passwords.txt

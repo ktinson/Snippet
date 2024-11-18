@@ -1,11 +1,9 @@
 package com.snippet.controller;
 
-
 import com.snippet.model.Snippet;
+import com.snippet.service.SnippetService;
 import com.snippet.repository.SnippetRepository;
 import com.snippet.repository.UserRepository;
-import com.snippet.service.SnippetService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,7 @@ public class SnippetController {
 
     @Autowired
     private SnippetRepository snippetRepository;
+
     @Autowired
     private SnippetService snippetService;
 
@@ -32,15 +31,6 @@ public class SnippetController {
         Snippet createdSnippet = snippetService.createSnippet(snippet, userId);
         return new ResponseEntity<>(createdSnippet, HttpStatus.CREATED);
     }
-    
-    // @PostMapping
-    // public ResponseEntity<Snippet> createSnippet(@RequestParam Long userId, @RequestBody Snippet snippet) {
-    //     return userRepository.findById(userId).map(user -> {
-    //         snippet.setUser(user);
-    //         Snippet savedSnippet = snippetRepository.save(snippet);
-    //         return ResponseEntity.ok(savedSnippet);
-    //     }).orElse(ResponseEntity.notFound().build());
-    // }
 
     // GET /snippet - Get all snippets
     @GetMapping
@@ -58,4 +48,3 @@ public class SnippetController {
         return snippet.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
-
