@@ -1,8 +1,7 @@
 package com.snippet.controller;
 
-
-import com.snippet.service.UserService;
 import com.snippet.model.User;
+import com.snippet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // POST /user - Create a new user
+    // POST ("/register")
     @PostMapping
     public User createUser(@Valid @RequestBody User user) {
         return userService.createUser(user);
