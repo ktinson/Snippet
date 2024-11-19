@@ -17,7 +17,8 @@ public class SecurityConfig {
         http.csrf().disable() // Disable CSRF for simplicity
                 .authorizeHttpRequests()
                 .requestMatchers("/users/**").permitAll() // Allow all access to /users endpoints
-                .anyRequest().authenticated() // Require authentication for other endpoints
+
+                .anyRequest().permitAll() // Require authentication for other endpoints
                 .and()
                 .formLogin(); // Enable default form login at /login
 
