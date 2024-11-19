@@ -35,16 +35,35 @@ public class SnippetController {
     // GET /snippet - Get all snippets
     @GetMapping
     public List<Snippet> getAllSnippets(@RequestParam(value = "lang", required = false) String language) {
+        List<Snippet> snippets;
         if (language != null) {
-            return snippetRepository.findByLanguage(language);
+            snippets = snippetService.getSnippetByLanguage(language);
+        } else {
+            snippets = snippetService.getAllSnippets();
         }
-        return snippetRepository.findAll();
+
+        // Decrypt any snippet that is not a bcrypt hash
+        for (Snippet snippet : snippets) {
+            String code = snippet.getCode();
+            // Check if the code is bcrypt-hashed
+            if (!snippetService.isBcryptHash(code)) {
+                try {
+                    // Decrypt the code if it is encrypted
+                    String decryptedCode = snippetService.getSnippetById(snippet.getId()).get().getCode();
+                    snippet.setCode(decryptedCode);
+                } catch (Exception e) {
+                    snippet.setCode("Decryption failed");
+                }
+            }
+        }
+
+        return snippets;
     }
 
     // GET /snippet/{id} - Get a snippet by ID
     @GetMapping("/{id}")
     public ResponseEntity<Snippet> getSnippetById(@PathVariable Long id) {
-        Optional<Snippet> snippet = snippetRepository.findById(id);
+        Optional<Snippet> snippet = snippetService.getSnippetById(id);
         return snippet.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
