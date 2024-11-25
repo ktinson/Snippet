@@ -1,5 +1,8 @@
 package com.snippet.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.snippet.model.Snippet;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +11,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "app_user", schema = "public")
 public class User {
 
     @Id
@@ -24,6 +27,15 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Snippet> snippets;
+    // Default constructor
+    public User() {}
+
+    @JsonCreator
+    public User(@JsonProperty("id") Long id, @JsonProperty("email") String email, @JsonProperty("password") String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
 
     // Getters and Setters
 

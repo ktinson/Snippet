@@ -25,7 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
-        // Use fully qualified class name for Spring Security's User
         List<GrantedAuthority> authorities = Collections.emptyList();
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), authorities);

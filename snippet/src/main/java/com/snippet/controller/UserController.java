@@ -16,19 +16,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // POST ("/register")
     @PostMapping
     public User createUser(@Valid @RequestBody User user) {
         return userService.createUser(user);
     }
-
-    // GET /user - Get all users
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    // GET /user/{id} - Get a user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id)

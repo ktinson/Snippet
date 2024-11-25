@@ -16,8 +16,6 @@ public class Snippet {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Getters and Setters
-
     public Long getId() {
         return id;
     }

@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface SnippetRepository extends JpaRepository<Snippet, Long> {
     List<Snippet> findByLanguage(String language);
-    List<Snippet> findByUserId(Long userId);
 
+    List<Snippet> findByUserId(Long userId);
 
 }

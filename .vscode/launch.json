@@ -9,6 +9,16 @@
             "projectName": "snippet",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SnippetApplication<snippet>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "SnippetApplication",
+            "projectName": "snippet",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

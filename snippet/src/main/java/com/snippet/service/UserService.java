@@ -24,11 +24,20 @@ public class UserService {
 
     // Create a new user
     public User createUser(User user) {
-        logger.info("Creating user with email: {}", user.getEmail());
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encode the password
-        return userRepository.save(user);
-    }
+        logger.info("Creating user: {}", user);
 
+        // Check if the email already exists
+        if (userRepository.existsByEmail(user.getEmail())) {
+            logger.warn("Email already in use: {}", user.getEmail());
+            throw new IllegalArgumentException("Email already in use");
+        }
+
+        // Encode the password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepository.save(user);
+        logger.info("User saved successfully with ID: {}", savedUser.getId());
+        return savedUser;
+    }
     // Get all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
