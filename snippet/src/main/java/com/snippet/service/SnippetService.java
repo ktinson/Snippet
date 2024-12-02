@@ -1,20 +1,12 @@
 package com.snippet.service;
 
-import com.snippet.service.SnippetEncryptionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.snippet.model.Snippet;
 import com.snippet.model.User;
 import com.snippet.repository.SnippetRepository;
 import com.snippet.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 

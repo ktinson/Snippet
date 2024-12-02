@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping("/snippets")
 public class SnippetController {
@@ -44,6 +45,7 @@ public class SnippetController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
     @GetMapping
     public List<Snippet> getAllSnippets(@RequestParam(value = "lang", required = false) String language) {
         if (language != null) {

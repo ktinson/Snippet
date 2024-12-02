@@ -1,6 +1,5 @@
 package com.snippet.config;
 
-
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -38,5 +37,4 @@ public class JwtUtil {
         return Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build()
                 .parseClaimsJws(token).getBody().getSubject();
     }
-
 }

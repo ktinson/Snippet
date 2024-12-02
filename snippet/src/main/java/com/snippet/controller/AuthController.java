@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -28,12 +27,11 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-    // Register a new user
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         try {
             User savedUser = userService.createUser(user);
-
             return ResponseEntity.status(HttpStatus.CREATED).body("User created with ID: " + savedUser.getId());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -42,7 +40,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
-        // Authenticate the user
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 
