@@ -29,7 +29,6 @@ public class SnippetController {
                 return ResponseEntity.badRequest().body(null); // User ID must be provided
             }
 
-            // Fetch the User object using the user ID
             Optional<User> user = userRepository.findById(snippet.getUser().getId());
             if (!user.isPresent()) {
                 return ResponseEntity.badRequest().body(null); // User not found

@@ -18,8 +18,7 @@ public class SnippetEncryptionService {
 
     // Encrypt the snippet code
     public String encrypt(String code) throws Exception {
-        System.out.println("AES Secret Key: " + secretKey);  // Add logging to check the key value
-
+        System.out.println("AES Secret Key: " + secretKey);
         if (secretKey.length() != 16 && secretKey.length() != 24 && secretKey.length() != 32) {
             throw new IllegalArgumentException("Invalid AES key length: must be 16, 24, or 32 bytes");
         }

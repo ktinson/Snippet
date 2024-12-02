@@ -1,24 +1,35 @@
-<!-- src/main/resources/templates/index.html -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snippet Application</title>
+    <title>Login</title>
 </head>
 <body>
-<h1>Welcome to the Snippet Application</h1>
+<h1>Login</h1>
 
 <div sec:authorize="!isAuthenticated()">
-    <p>Welcome, guest! Please <a th:href="@{/oauth2/authorization/auth0}">log in</a> to access the application.</p>
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+    <p>Or use one of the following to log in:</p>
+
+    <a th:href="@{/oauth2/authorization/auth0}">Login with Auth0</a><br><br>
 </div>
 
 <div sec:authorize="isAuthenticated()">
-    <p>You are logged in!</p>
-    <p>Welcome, <span th:text="${#authentication.name}">User</span>!</p>
-    <a href="/users">Go to Users Page</a><br>
+    <p>You are already logged in!</p>
     <a href="/logout">Logout</a>
 </div>
 
+<!-- Link to /snippets and / users page -->
+<p><a href="/snippets">Go to Snippets Page</a></p>
+<p><a href="/users">Go to Users Page</a></p>
 </body>
 </html>
