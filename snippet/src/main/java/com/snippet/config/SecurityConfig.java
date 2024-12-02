@@ -36,15 +36,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers("/", "/login", "/error", "/webjars/**").permitAll() // Allow these pages without authentication
-                .anyRequest().authenticated() // Require authentication for any other request
+                .requestMatchers("/", "/login", "/error", "/webjars/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin() // Enables form-based login
-                .loginPage("/login") // Custom login page URL (optional, or you can omit it to use the default form)
+                .formLogin()
+                .loginPage("/login")
                 .permitAll()
                 .and()
-                .oauth2Login() // OAuth2 login configuration (e.g., Google, Facebook)
-                .permitAll();  // Allow OAuth2 login for anyone
+                .oauth2Login()
+                .permitAll();
 
         return http.build();
     }
