@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+
+<!-- Display the default form-based login (email/password) -->
+<div sec:authorize="!isAuthenticated()">
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+    <p>Or use one of the following to log in:</p>
+
+    <!-- Display OAuth2 login buttons (Google, etc.) -->
+    <a th:href="@{/oauth2/authorization/google}">Login with Google</a><br><br>
+    <a th:href="@{/oauth2/authorization/facebook}">Login with Facebook</a><br><br>
+</div>
+
+<!-- If already authenticated, show the logged-in status -->
+<div sec:authorize="isAuthenticated()">
+    <p>You are already logged in!</p>
+    <a href="/logout">Logout</a>
+</div>
+
+</body>
+</html>

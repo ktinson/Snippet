@@ -5,14 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
@@ -28,26 +26,26 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder =
-                http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-        return authenticationManagerBuilder.build();
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder())
+                .and().build();
     }
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers("/login", "/oauth2/**").permitAll()  // Allow login and OAuth2 URLs without authentication
-                .anyRequest().authenticated()  // Authenticate all other requests
+                .requestMatchers("/", "/login", "/error", "/webjars/**").permitAll() // Allow these pages without authentication
+                .anyRequest().authenticated() // Require authentication for any other request
                 .and()
-                .oauth2Login()  // Enable OAuth2 login
-                .loginPage("/oauth2/authorization/auth0")  // Default login page, handled by OAuth2
-                .permitAll();
+                .formLogin() // Enables form-based login
+                .loginPage("/login") // Custom login page URL (optional, or you can omit it to use the default form)
+                .permitAll()
+                .and()
+                .oauth2Login() // OAuth2 login configuration (e.g., Google, Facebook)
+                .permitAll();  // Allow OAuth2 login for anyone
 
         return http.build();
     }
-
 }
-
